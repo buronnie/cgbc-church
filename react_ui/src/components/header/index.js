@@ -176,7 +176,7 @@ class Header extends Component {
     return (
     	<div>
 				<Row>
-					<Col span={8}><h5>Chinese Grace Bible Church</h5></Col>
+					<Col span={5} className="mt-2 ml-3"><h5>Chinese Grace Bible Church</h5></Col>
 					<Col span={16}>
 						<Menu
 							onClick={this.toggleNavItem}
