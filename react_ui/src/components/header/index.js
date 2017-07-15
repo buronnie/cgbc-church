@@ -5,6 +5,8 @@ import { login, logout, signup, validateToken } from '../../factories/auth.js';
 import LoginFormModal from './LoginFormModal';
 import SignupFormModal from './SignupFormModal';
 
+const SubMenu = Menu.SubMenu;
+
 class Header extends Component {
   state = {
     current: 'home',
@@ -176,7 +178,7 @@ class Header extends Component {
     return (
     	<div>
 				<Row>
-					<Col span={5} className="mt-2 ml-3"><h5>Chinese Grace Bible Church</h5></Col>
+					<Col span={7} className="mt-2 ml-3"><h5>Chinese Grace Bible Church</h5></Col>
 					<Col span={16}>
 						<Menu
 							onClick={this.toggleNavItem}
@@ -187,6 +189,16 @@ class Header extends Component {
                 <Menu.Item key="dashboard">
                   <NavLink to="/">Dashboard</NavLink>
                 </Menu.Item>
+              ) : null }
+              { this.state.showLogoutTab ? (
+                <SubMenu title="Finance">
+                  <Menu.Item key="add_offer">
+                    <NavLink to="/finance/offers/new">Add offer</NavLink>
+                  </Menu.Item>
+                  <Menu.Item key="list_offers">
+                    <NavLink to="/finance/offers">List offers</NavLink>
+                  </Menu.Item>
+                </SubMenu>
               ) : null }
               { this.state.showLoginTab ? (
                 <Menu.Item key="signup">
