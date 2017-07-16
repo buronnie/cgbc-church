@@ -176,8 +176,8 @@ class Header extends Component {
 
   render() {
     return (
-    	<div>
-				<Row>
+    	<div className="mb-4">
+        <Row type="flex" justify="space-around" align="middle">
 					<Col span={7} className="mt-2 ml-3"><h5>Chinese Grace Bible Church</h5></Col>
 					<Col span={16}>
 						<Menu

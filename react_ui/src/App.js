@@ -18,7 +18,7 @@ class App extends Component {
     return (
       <LocaleProvider locale={en_US}>
         <div className="App">
-          <Header />
+          <Header/>
           <Switch>
             <Route exact path='/' component={Home}/>
             <Route exact path='/finance/offers/new' component={NewOffer}/>
