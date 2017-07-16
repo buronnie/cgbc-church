@@ -30,7 +30,7 @@ const amountConfig = {
 };
 const typeConfig = {
   initialValue: "sunday",
-  rules: [{ required: true, message: 'Please input the offer amount!' }],
+  rules: [{ required: true, message: 'Please input the offer date!' }],
 };
 const dateConfig = {
   initialValue: moment(),
