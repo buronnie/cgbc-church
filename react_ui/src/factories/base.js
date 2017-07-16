@@ -24,6 +24,14 @@ class Base {
     });
   };
 
+  update = (item) => {
+    return $.ajax({
+      url: `${this.url}/${item.id}`,
+      type: 'PUT',
+      data: item
+    });
+  };
+
 }
 
 export default Base;
