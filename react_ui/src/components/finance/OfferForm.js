@@ -57,6 +57,13 @@ class OfferForm extends Component {
     };
   }
 
+  payload = (params) => {
+    if (this.props.id) {
+      return { id: this.props.id, ...params };
+    }
+    return params;
+  };
+
   handleSubmit = (e) => {
     e.preventDefault();
     const form = this.props.form;
@@ -69,7 +76,8 @@ class OfferForm extends Component {
 
       // Should format date value before submit.
       fieldsValue['offered_at'] = fieldsValue['offered_at'].format('YYYY-MM-DD');
-      apiCall({offer: fieldsValue})
+
+      apiCall(this.payload(fieldsValue))
         .then(() => {
           this.setState({ saveSuccess: true });
         })

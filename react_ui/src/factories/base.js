@@ -16,6 +16,13 @@ class Base {
     });
   };
 
+  newItem = () => {
+    return $.ajax({
+      url: `${this.url}/new`,
+      type: 'GET'
+    });
+  };
+
   create = (item) => {
     return $.ajax({
       url: this.url,
