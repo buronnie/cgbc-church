@@ -5,9 +5,11 @@ import { Switch, Route } from 'react-router-dom';
 import Header from './components/header';
 import Home from './routes/home';
 import NewOffer from './routes/finance/NewOffer';
+import EditOffer from './routes/finance/EditOffer';
 import ListOffers from './routes/finance/ListOffers';
 import { apiUrl } from './config/api';
 import { setApiUrl } from './factories/auth';
+import My404Page from './components/exceptions/My404Page';
 
 class App extends Component {
   componentDidMount() {
@@ -22,7 +24,9 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={Home}/>
             <Route exact path='/finance/offers/new' component={NewOffer}/>
+            <Route exact path='/finance/offers/:id' component={EditOffer}/>
             <Route exact path='/finance/offers' component={ListOffers}/>
+            <Route component={My404Page} />
           </Switch>
         </div>
       </LocaleProvider>

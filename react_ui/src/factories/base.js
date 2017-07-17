@@ -16,10 +16,25 @@ class Base {
     });
   };
 
+  newItem = () => {
+    return $.ajax({
+      url: `${this.url}/new`,
+      type: 'GET'
+    });
+  };
+
   create = (item) => {
     return $.ajax({
       url: this.url,
       type: 'POST',
+      data: item
+    });
+  };
+
+  update = (item) => {
+    return $.ajax({
+      url: `${this.url}/${item.id}`,
+      type: 'PUT',
       data: item
     });
   };

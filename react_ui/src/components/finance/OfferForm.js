@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Form, DatePicker, Input, InputNumber, Button, Select } from 'antd';
-import moment from 'moment';
 import offerFactory from '../../factories/offer';
-import { Redirect } from 'react-router-dom';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -21,20 +19,34 @@ const formItemLayout = {
     sm: { span: 16 },
   },
 };
-const contributorConfig = {
-  rules: [{ required: true, message: 'Please select a contributor!' }],
+const contributorConfig = (initValue) => {
+  return {
+    initialValue: initValue,
+    rules: [{required: true, message: 'Please select a contributor!'}],
+  };
 };
-const amountConfig = {
-  initialValue: "0.0",
-  rules: [{ required: true, message: 'Please input the offer amount!' }],
+const amountConfig = (initValue) => {
+  return {
+    initialValue: initValue,
+    rules: [{ required: true, message: 'Please input the offer amount!' }],
+  };
 };
-const typeConfig = {
-  initialValue: "sunday",
-  rules: [{ required: true, message: 'Please input the offer date!' }],
+const typeConfig = (initValue) => {
+  return {
+    initialValue: initValue,
+    rules: [{ required: true, message: 'Please input the offer date!' }],
+  };
 };
-const dateConfig = {
-  initialValue: moment(),
-  rules: [{ required: true, message: 'Please select the offer date!' }],
+const dateConfig = (initValue) => {
+  return {
+    initialValue: initValue,
+    rules: [{ required: true, message: 'Please select the offer date!' }],
+  };
+};
+const noteConfig = (initValue) => {
+  return {
+    initialValue: initValue,
+  };
 };
 
 class OfferForm extends Component {
@@ -44,9 +56,18 @@ class OfferForm extends Component {
       saveSuccess: false,
     };
   }
+
+  payload = (params) => {
+    if (this.props.id) {
+      return { id: this.props.id, ...params };
+    }
+    return params;
+  };
+
   handleSubmit = (e) => {
     e.preventDefault();
     const form = this.props.form;
+    const apiCall = this.props.action === 'new' ? offerFactory.create : offerFactory.update;
 
     form.validateFields((err, fieldsValue) => {
       if (err) {
@@ -55,8 +76,9 @@ class OfferForm extends Component {
 
       // Should format date value before submit.
       fieldsValue['offered_at'] = fieldsValue['offered_at'].format('YYYY-MM-DD');
-      offerFactory.create({offer: fieldsValue})
-        .then(res => {
+
+      apiCall(this.payload(fieldsValue))
+        .then(() => {
           this.setState({ saveSuccess: true });
         })
         .fail(res => {
@@ -79,14 +101,14 @@ class OfferForm extends Component {
 
     let view = null;
     if (this.state.saveSuccess) {
-      view = <Redirect to="/"/>
+      view = this.props.redirectToUrl;
     } else {
       view = <Form onSubmit={this.handleSubmit}>
         <FormItem
           {...formItemLayout}
           label="Contributor"
         >
-          {getFieldDecorator('contributor', contributorConfig)(
+          {getFieldDecorator('contributor', contributorConfig(this.props.contributor))(
             <Select
               style={{ width: WIDTH }}
               placeholder="Select a person"
@@ -103,7 +125,7 @@ class OfferForm extends Component {
           {...formItemLayout}
           label="Amount"
         >
-          {getFieldDecorator('amount', amountConfig)(
+          {getFieldDecorator('amount', amountConfig(this.props.amount))(
             <InputNumber
               size="large"
               style={{ width: WIDTH }}
@@ -119,7 +141,7 @@ class OfferForm extends Component {
           {...formItemLayout}
           label="Offer Type"
         >
-          {getFieldDecorator('offer_type', typeConfig)(
+          {getFieldDecorator('offer_type', typeConfig(this.props.offer_type))(
             <Select
               style={{ width: WIDTH }}
               placeholder="Select a type"
@@ -135,7 +157,7 @@ class OfferForm extends Component {
           {...formItemLayout}
           label="Offer Date"
         >
-          {getFieldDecorator('offered_at', dateConfig)(
+          {getFieldDecorator('offered_at', dateConfig(this.props.offered_at))(
             <DatePicker
               format={dateFormat}
               style={{ width: WIDTH }}
@@ -147,7 +169,7 @@ class OfferForm extends Component {
           {...formItemLayout}
           label="Note"
         >
-          {getFieldDecorator('note')(
+          {getFieldDecorator('note', noteConfig(this.props.note))(
             <TextArea
               rows={4}
               style={{ width: WIDTH }}
@@ -165,7 +187,6 @@ class OfferForm extends Component {
         </FormItem>
       </Form>
     }
-
     return view;
   }
 }
