@@ -4,6 +4,7 @@ import { Menu, Row, Col, Modal } from 'antd';
 import { login, logout, signup, validateToken } from '../../factories/auth.js';
 import LoginFormModal from './LoginFormModal';
 import SignupFormModal from './SignupFormModal';
+import { withRouter } from 'react-router-dom';
 
 const SubMenu = Menu.SubMenu;
 
@@ -157,6 +158,7 @@ class Header extends Component {
         showLogoutTab: false,
         logoutModalVisible: false,
       });
+      this.props.history.push('/');
     });
   };
 
@@ -233,4 +235,4 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default withRouter(Header);
