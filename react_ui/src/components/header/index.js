@@ -81,11 +81,14 @@ class Header extends Component {
           this.resetSignupFields();
           this.setState({
             signupModalVisible: false,
+            showLoginTab: false,
+            showLogoutTab: true,
           });
           Modal.success({
             title: 'Sign Up Success!',
-            content: 'Please activate your account in your email',
+            content: '',
           });
+          this.props.history.push('/');
         })
         .fail(res => {
           let errors = res.data.errors;
