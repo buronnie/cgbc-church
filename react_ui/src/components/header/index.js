@@ -24,7 +24,7 @@ class Header extends Component {
         showLoginTab: false,
         showLogoutTab: true,
       });
-    }).fail(() => {
+    }).catch(() => {
       this.setState({
         showLoginTab: true,
         showLogoutTab: false,
@@ -90,7 +90,7 @@ class Header extends Component {
           });
           this.props.history.push('/');
         })
-        .fail(res => {
+        .catch(res => {
           let errors = res.data.errors;
           for (let attr in errors) {
             form.setFields({
@@ -136,7 +136,7 @@ class Header extends Component {
             showLogoutTab: true,
           });
         })
-        .fail(res => {
+        .catch(res => {
           form.setFields({
             formError: {
               value: '',

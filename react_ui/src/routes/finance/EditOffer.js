@@ -33,7 +33,7 @@ export default class EditOffer extends Component {
           note: res.note || '',
         });
       })
-      .fail(res => {
+      .catch(res => {
         this.setState({
           status: res.statusText,
         });

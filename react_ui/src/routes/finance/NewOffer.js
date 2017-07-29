@@ -31,7 +31,7 @@ export default class NewOffer extends Component {
           note: res.note || '',
         });
       })
-      .fail(res => {
+      .catch(res => {
         this.setState({
           status: res.statusText,
         });
