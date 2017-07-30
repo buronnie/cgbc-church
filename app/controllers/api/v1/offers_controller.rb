@@ -1,5 +1,6 @@
 module Api::V1
   class OffersController < ApiController
+    before_action :authorize_offer
 
     # GET /v1/offers
     def index
@@ -17,7 +18,7 @@ module Api::V1
     end
 
     def new
-      render status: :ok, json: default_offer
+      render status: :ok, json: Offer::DEFAULT_OFFER
     end
 
     def create
@@ -44,14 +45,8 @@ module Api::V1
       params.permit(:id, :contributor, :amount, :offer_type, :offered_at, :note)
     end
 
-    def default_offer
-      {
-          contributor: '',
-          amount: '0.0',
-          offer_type: 'sunday',
-          offered_at: Date.today.to_s,
-          note: '',
-      }
+    def authorize_offer
+      authorize Offer
     end
   end
 end

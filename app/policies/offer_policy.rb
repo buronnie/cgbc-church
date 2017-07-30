@@ -1,0 +1,2 @@
+class OfferPolicy < FinanceManagerPolicy
+end
