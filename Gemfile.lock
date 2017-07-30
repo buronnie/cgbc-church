@@ -146,6 +146,8 @@ GEM
       slop (~> 3.0)
     public_suffix (2.0.5)
     puma (3.9.1)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.3)
     rack-attack (5.0.1)
       rack
@@ -187,6 +189,7 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    rolify (5.1.0)
     rspec (3.6.0)
       rspec-core (~> 3.6.0)
       rspec-expectations (~> 3.6.0)
@@ -271,12 +274,14 @@ DEPENDENCIES
   pry-rails
   pry-remote
   puma (~> 3.7)
+  pundit
   rack-attack
   rack-cors
   rails (~> 5.1.1)
   rails_12factor
   rails_serve_static_assets
   rails_stdout_logging
+  rolify
   rspec-collection_matchers
   rspec-instafail
   rspec-its
