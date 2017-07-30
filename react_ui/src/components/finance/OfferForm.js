@@ -81,7 +81,7 @@ class OfferForm extends Component {
         .then(() => {
           this.setState({ saveSuccess: true });
         })
-        .fail(res => {
+        .catch(res => {
           let errors = res.responseJSON.errors;
           for (let attr in errors) {
             form.setFields({
