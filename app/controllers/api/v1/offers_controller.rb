@@ -4,7 +4,7 @@ module Api::V1
 
     # GET /v1/offers
     def index
-      render json: Offer.all
+      render status: :ok, json: { data: Offer.all }
     end
 
     # GET /v1/offers/{id}
