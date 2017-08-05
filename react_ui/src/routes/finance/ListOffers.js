@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import offerFactory from '../../factories/offer';
-import { Spin } from 'antd';
 import { Table } from 'antd';
 import { NavLink } from 'react-router-dom';
+import handleExceptionContainer from '../../components/HOC/handleExceptionContainer';
 
 const columns = [{
   title: 'Contributor',
@@ -27,40 +27,29 @@ const columns = [{
   dataIndex: 'note',
 }];
 
-export default class ListOffers extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      status: 'loading',
-      offers: [],
-    };
-  }
-
-  componentDidMount() {
-    offerFactory.index()
-      .then(res => {
-        this.setState({
-          status: 'success',
-          offers: res.data.map(offer => ({...offer, key: offer.id})),
-        });
-      })
-      .catch(res => {
-        this.setState({
-          status: res.statusText,
-        });
+const loadData = (classRef) => {
+  offerFactory.index()
+    .then(res => {
+      classRef.setState({
+        status: 'success',
+        offers: res.data.map(offer => ({...offer, key: offer.id})),
       });
-  }
+    })
+    .catch(res => {
+      classRef.setState({
+        status: res.statusText,
+      });
+    });
+};
 
-  render() {
-    if (this.state.status === 'loading') {
-      return <Spin className="loading-spin" />;
-    }
+const ListOffers = (props) => (
+  <Table
+    columns={columns}
+    {...props}
+  />
+);
 
-    return (
-      <Table
-        columns={columns}
-        dataSource={this.state.offers}
-      />
-    );
-  }
-}
+export default handleExceptionContainer(
+  ListOffers,
+  loadData
+);
