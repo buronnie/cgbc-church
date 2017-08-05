@@ -25,6 +25,7 @@ const handleExceptionContainer = (MyComponent, loadData) => {
             <MyComponent
               {...this.props}
               {...this.state}
+              dataSource={this.state.offers}
             />
           );
         case 'Unauthorized':
