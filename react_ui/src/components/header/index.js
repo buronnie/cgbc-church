@@ -135,6 +135,7 @@ class Header extends Component {
             showLoginTab: false,
             showLogoutTab: true,
           });
+          this.props.history.push('/');
         })
         .catch(res => {
           form.setFields({

@@ -56,7 +56,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "surge": "yarn build && surge --project ./build --domain cgbc.surge.sh"
+    "surge": "yarn build && cd build && mv index.html 200.html && surge . --domain cgbc.surge.sh"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -90,6 +90,5 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  },
-  "homepage": "."
+  }
 }
