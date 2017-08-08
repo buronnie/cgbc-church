@@ -8,4 +8,6 @@ Rails.application.routes.draw do
       resources :offers, only: [:new, :index, :show, :create, :update]
     end
   end
+
+  root to: 'home#index'
 end
