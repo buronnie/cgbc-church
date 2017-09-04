@@ -24,6 +24,7 @@ module Api::V1
     def create
       offer = Offer.new(permitted_params)
       if offer.save
+        offer.save_attachments(permitted_params) if params[:document_data].present?
         render status: :created, json: { offer: offer }
       else
         render status: :unprocessable_entity, json: { errors: offer.errors }
@@ -42,7 +43,8 @@ module Api::V1
     private
 
     def permitted_params
-      params.permit(:id, :contributor, :amount, :offer_type, :offered_at, :note)
+      params.permit(:id, :contributor, :amount, :offer_type,
+                    :offered_at, :note, document_data: [:url])
     end
 
     def authorize_offer

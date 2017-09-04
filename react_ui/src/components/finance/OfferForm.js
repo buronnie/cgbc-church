@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, DatePicker, Input, InputNumber, Button, Select } from 'antd';
+import { Form, DatePicker, Input, InputNumber, Button, Select, Upload, Icon } from 'antd';
 import offerFactory from '../../factories/offer';
 
 const FormItem = Form.Item;
@@ -77,6 +77,7 @@ class OfferForm extends Component {
       // Should format date value before submit.
       fieldsValue['offered_at'] = fieldsValue['offered_at'].format('YYYY-MM-DD');
 
+      fieldsValue['document_data'] = this.state.fileList;
       apiCall(this.payload(fieldsValue))
         .then(() => {
           this.setState({ saveSuccess: true });
@@ -94,6 +95,19 @@ class OfferForm extends Component {
         }
       );
     });
+  };
+
+  handleUpload = (file) => {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = function() {
+      this.setState({
+        fileList: [{
+          url: reader.result
+        }]
+      })
+    }.bind(this);
+    return false;
   };
 
   render() {
@@ -175,6 +189,20 @@ class OfferForm extends Component {
               style={{ width: WIDTH }}
             />
           )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="Receipt"
+        >
+          <Upload
+            name='file'
+            beforeUpload={this.handleUpload}
+          >
+            <Button>
+              <Icon type="upload" /> Click to Upload
+            </Button>
+          </Upload>
         </FormItem>
 
         <FormItem

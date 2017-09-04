@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170730055836) do
+ActiveRecord::Schema.define(version: 20170904053642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "documents", force: :cascade do |t|
+    t.bigint "offer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "file_file_name"
+    t.string "file_content_type"
+    t.integer "file_file_size"
+    t.datetime "file_updated_at"
+    t.index ["offer_id"], name: "index_documents_on_offer_id"
+  end
 
   create_table "offers", force: :cascade do |t|
     t.string "contributor", null: false
@@ -73,4 +84,5 @@ ActiveRecord::Schema.define(version: 20170730055836) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "documents", "offers"
 end
