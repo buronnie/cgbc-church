@@ -41,5 +41,13 @@ module AwesomeClass
                  :methods => [:get, :post, :options, :delete, :put]
       end
     end
+
+    setting_files = []
+    unless Rails.env.test?
+      setting_files += [
+        Rails.root.join('config', 'local.yml'),
+      ]
+    end
+    Config.load_and_set_settings(*setting_files)
   end
 end

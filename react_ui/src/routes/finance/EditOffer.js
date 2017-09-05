@@ -21,6 +21,7 @@ const loadData = (classRef) => {
         offer_type: res.offer_type,
         offered_at: moment(res.offered_at),
         note: res.note || '',
+        file_list: res.file_list || [],
       });
     })
     .catch(res => {

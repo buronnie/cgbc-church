@@ -21,3 +21,5 @@
 node_modules
 ui/build/**
 ui/npm-debug.log
+config/aws.yml
+local.yml

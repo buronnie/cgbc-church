@@ -24,6 +24,9 @@ gem 'omniauth'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'rolify'
 gem 'pundit'
+gem "paperclip", "~> 5.0.0"
+gem 'aws-sdk', '~> 2.3'
+gem 'config'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
