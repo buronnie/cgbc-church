@@ -11,7 +11,14 @@ module Api::V1
     def show
       offer = Offer.find(params[:id])
       if offer
-        render status: :ok, json: offer
+        file_list = offer.documents.map do |doc|
+          {
+            uid: doc['file_uid'],
+            name: doc['file_file_name'],
+            link: doc.file.url,
+          }
+        end
+        render status: :ok, json: offer.as_json.merge(file_list: file_list)
       else
         render status: :not_found, json: {}
       end
@@ -34,6 +41,7 @@ module Api::V1
     def update
       offer = Offer.find(params[:id])
       if offer.update(permitted_params)
+        offer.save_attachments(permitted_params)
         render status: :ok, json: { offer: offer }
       else
         render status: :unprocessable_entity, json: { errors: offer.errors }
@@ -44,7 +52,7 @@ module Api::V1
 
     def permitted_params
       params.permit(:id, :contributor, :amount, :offer_type,
-                    :offered_at, :note, document_data: [:url])
+                    :offered_at, :note, document_data: [:uid, :url, :name])
     end
 
     def authorize_offer
