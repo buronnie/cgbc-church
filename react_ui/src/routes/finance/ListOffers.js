@@ -20,8 +20,12 @@ const columns = [{
   title: 'Type',
   dataIndex: 'offer_type',
 }, {
-  title: 'Date',
+  title: 'Offer Date',
   dataIndex: 'offered_at',
+  render: (date) => {
+    const dateObj = new Date(date);
+    return `${dateObj.getMonth() + 1}/${dateObj.getDate()}/${dateObj.getFullYear()}`;
+  }
 }, {
   title: 'Note',
   dataIndex: 'note',
